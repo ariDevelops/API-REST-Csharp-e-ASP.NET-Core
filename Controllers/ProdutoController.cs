@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using EstoqueApi.Models;
 
 namespace EstoqueApi.Controllers;
@@ -49,10 +50,32 @@ public class ProdutoController : ControllerBase
 
 
     [HttpPost]
-    public string AdicionarProduto([FromBody] Produto item) // [FromBody] diz: O objeto virá no corpo da requisição
+    public ActionResult<Produto> AdicionarProduto([FromBody] Produto item) // [FromBody] diz: O objeto virá no corpo da requisição
     {
         produtos.Add(item);
-        return "Produto adicionado com sucesso";
+        return Ok(item);
+
+        /* O Metodo OK() que vem de ActionResult, diz: HTTP 200 OK, e retorna o objeto que foi adicionado.
+         * Na Prática ele envia algo equivalenta a isso:
+            HTTP/1.1 200 OK
+            Content-Type: application/json
+        */
+    }
+
+
+    [HttpGet("{id}")]
+    public ActionResult<Produto> BuscarPorId(int id)
+    {
+        //FirstOrDefault lê-se assim:
+        //"Percorra a lista e devolva o primeiro produto cujo Id seja igual ao id informado."
+        var produto = produtos.FirstOrDefault(p => p.Id == id); // dentro dos () é uma expressão lambda
+
+        if (produto == null)
+        {
+           return NotFound();
+        }
+
+        return Ok(produto);
     }
 
 
