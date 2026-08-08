@@ -11,8 +11,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 
+// Adicionando suporte ao padrão openAPI, que é um padrão de documentação de APIs REST
+/* Oque esta linha faz:
+    Ela registra no sistema de Dependency Injection do ASP.NET o serviço responsável por gerar a descrição OpenAPI da sua API.
+    Ainda não estamos criando uma página Swagger.
+    Estamos apenas dizendo:
 
-
+    "ASP.NET, quero que você saiba gerar a documentação OpenAPI desta aplicação."
+*/
+builder.Services.AddOpenApi();
 
 
 
@@ -21,6 +28,18 @@ Até aqui nada está ouvindo a rede.
 Ainda estamos apenas montando a aplicação.
 */
 var app = builder.Build();
+
+// Agora precisamos disponibilizar a documentação da openAPI para que o SwaggerUI consiga ler e exibir a documentação da API.
+if (app.Environment.IsDevelopment())
+{
+   app.MapOpenApi(); 
+
+   // adicionando a configuração do SwaggerUI
+   app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/openapi/v1.json", "Estoque API v1");
+    });
+}
 
 
 
