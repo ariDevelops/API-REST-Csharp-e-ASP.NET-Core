@@ -1,0 +1,17 @@
+Estes são os métodos expostos pelo ControllerBase:
+
+| Método C#               | Status HTTP           |  Código | Uso típico                                        |
+| ----------------------- | --------------------- | ------: | ------------------------------------------------- |
+| `Ok()`                  | OK                    | **200** | Operação realizada com sucesso                    |
+| `Created()`             | Created               | **201** | Recurso criado                                    |
+| `CreatedAtAction()`     | Created               | **201** | Criou recurso e informa onde encontrá-lo          |
+| `NoContent()`           | No Content            | **204** | Sucesso, mas sem conteúdo para retornar           |
+| `BadRequest()`          | Bad Request           | **400** | Requisição inválida                               |
+| `Unauthorized()`        | Unauthorized          | **401** | Não autenticado                                   |
+| `Forbid()`              | Forbidden             | **403** | Autenticado, mas sem permissão                    |
+| `NotFound()`            | Not Found             | **404** | Recurso não encontrado                            |
+| `Conflict()`            | Conflict              | **409** | Conflito com o estado atual                       |
+| `UnprocessableEntity()` | Unprocessable Entity  | **422** | Dados compreendidos, mas semanticamente inválidos |
+| `StatusCode(500)`       | Internal Server Error | **500** | Erro interno do servidor                          |
+| `StatusCode(501)`       | Not Implemented       | **501** | Funcionalidade não implementada                   |
+| `StatusCode(503)`       | Service Unavailable   | **503** | Serviço temporariamente indisponível              |
