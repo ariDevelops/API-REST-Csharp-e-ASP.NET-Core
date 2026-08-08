@@ -111,6 +111,26 @@ public ActionResult<Produto> AtualizarProduto(int id, [FromBody] Produto item)
     });
 }
 
+/*
+ *  === DELETE  ===
+ */
+ [HttpDelete("{id}")] // api/produtos/{id}
+public ActionResult<Produto> DeletarProduto(int id)
+{
+    var produto = produtos.FirstOrDefault(p => p.Id == id);
 
+    if (produto == null)
+    {
+        return NotFound("Produto não encontrado.");
+    }
+
+    produtos.Remove(produto);
+
+    return Ok(new
+    {
+        mensagem = $"O produto {produto.Nome} foi removido com sucesso!",
+        produto = produto
+    });
+}
 
 }
